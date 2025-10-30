@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 let serverStatus = {
   online: true,
-  currentPlayers: 39,
+  currentPlayers: 29,
   maintenance: false
 };
 
