@@ -17,6 +17,11 @@
     <h1>Admin Panel</h1>
     <form id="statusForm">
       <label>
+        Password:
+        <input type="password" id="password" required>
+      </label>
+      <br><br>
+      <label>
         Server Online:
         <input type="checkbox" id="online" checked>
       </label>
@@ -26,6 +31,11 @@
         <input type="number" id="players" value="39">
       </label>
       <br><br>
+      <label>
+        Maintenance Mode:
+        <input type="checkbox" id="maintenance">
+      </label>
+      <br><br>
       <button type="submit" class="btn primary">Update Status</button>
     </form>
   </header>
@@ -33,13 +43,17 @@
   <script>
     document.getElementById('statusForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const password = document.getElementById('password').value;
       const online = document.getElementById('online').checked;
       const currentPlayers = parseInt(document.getElementById('players').value);
+      const maintenance = document.getElementById('maintenance').checked;
+
       const res = await fetch('/api/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ online, currentPlayers })
+        body: JSON.stringify({ password, online, currentPlayers, maintenance })
       });
+
       if (res.ok) {
         alert('Status updated!');
       } else {

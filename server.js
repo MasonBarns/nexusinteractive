@@ -5,26 +5,35 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Store server status in memory
+// In-memory server state
 let serverStatus = {
   online: true,
-  currentPlayers: 39
+  currentPlayers: 39,
+  maintenance: false
 };
 
-// Middleware
+const ADMIN_PASSWORD = '7736635722';
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// API to get current status
+// Public API for homepage
 app.get('/api/server-info', (req, res) => {
   res.json(serverStatus);
 });
 
-// API to update status (admin panel)
+// Protected API for admin updates
 app.post('/api/update-status', (req, res) => {
-  const { online, currentPlayers } = req.body;
-  if (typeof online === 'boolean' && typeof currentPlayers === 'number') {
-    serverStatus = { online, currentPlayers };
+  const { password, online, currentPlayers, maintenance } = req.body;
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+  if (
+    typeof online === 'boolean' &&
+    typeof currentPlayers === 'number' &&
+    typeof maintenance === 'boolean'
+  ) {
+    serverStatus = { online, currentPlayers, maintenance };
     res.json({ success: true });
   } else {
     res.status(400).json({ error: 'Invalid input' });
