@@ -1,26 +1,41 @@
 const express = require('express');
-const axios = require('axios');
 const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Store server status in memory
+let serverStatus = {
+  online: true,
+  currentPlayers: 39
+};
 
-app.get('/api/server-info', async (req, res) => {
-  try {
-    const response = await axios.get('https://api.erlc.com/server', {
-      headers: { Authorization: `Bearer ${process.env.ERLC_API_KEY}` }
-    });
-    res.json(response.data);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch server info' });
+// Middleware
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+
+// API to get current status
+app.get('/api/server-info', (req, res) => {
+  res.json(serverStatus);
+});
+
+// API to update status (admin panel)
+app.post('/api/update-status', (req, res) => {
+  const { online, currentPlayers } = req.body;
+  if (typeof online === 'boolean' && typeof currentPlayers === 'number') {
+    serverStatus = { online, currentPlayers };
+    res.json({ success: true });
+  } else {
+    res.status(400).json({ error: 'Invalid input' });
   }
 });
 
-app.get('/*', (req, res) => {
+// Fallback route
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

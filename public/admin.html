@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-brand">Liberty RP Admin</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Admin Panel</h1>
+    <form id="statusForm">
+      <label>
+        Server Online:
+        <input type="checkbox" id="online" checked>
+      </label>
+      <br><br>
+      <label>
+        Current Players:
+        <input type="number" id="players" value="39">
+      </label>
+      <br><br>
+      <button type="submit" class="btn primary">Update Status</button>
+    </form>
+  </header>
+
+  <script>
+    document.getElementById('statusForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const online = document.getElementById('online').checked;
+      const currentPlayers = parseInt(document.getElementById('players').value);
+      const res = await fetch('/api/update-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ online, currentPlayers })
+      });
+      if (res.ok) {
+        alert('Status updated!');
+      } else {
+        alert('Failed to update status.');
+      }
+    });
+  </script>
+</body>
+</html>
