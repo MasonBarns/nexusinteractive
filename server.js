@@ -20,10 +20,10 @@ app.get('/api/server-info', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch server info' });
   }
 });
-
-// Fallback to index.html
+// Fallback route to serve index.html for SPA
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
