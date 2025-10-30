@@ -6,15 +6,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="maintenance-overlay" class="overlay" style="display:none;">
+  <!-- Maintenance Lockout -->
+  <div id="maintenance-overlay" class="overlay">
     <div class="overlay-content">
-      <p>⚠️ This site is being worked on currently!</p>
+      <h2>⚠️ Site Under Maintenance</h2>
+      <p>This site is currently being worked on. Please enter the password to continue.</p>
       <input type="password" id="unlock-password" placeholder="Enter password">
       <button onclick="unlockSite()">Unlock</button>
-      <p id="unlock-error" style="color:red;"></p>
+      <p id="unlock-error" class="error"></p>
     </div>
   </div>
 
+  <!-- Navigation -->
   <nav>
     <div class="nav-brand">Liberty RP</div>
     <ul>
@@ -26,36 +29,39 @@
     </ul>
   </nav>
 
-  <header>
-    <div class="status">
-      <span class="online">🟢 Server Status:</span>
+  <!-- Main Content -->
+  <main>
+    <div class="status-box">
+      <span class="status-label">🟢 Server Status:</span>
       <span id="players">Loading...</span>
     </div>
+
     <h1>Liberty County Roleplay</h1>
-    <p class="tagline">Immersive ER:LC Action</p>
+    <p class="tagline">Immersive E.R.L.C Action</p>
     <p class="description">
-      Join an open, evident, community-driven ER:LC server with service departments, realistic dispatch, and frequent events.
+      Join an open, evident, community-driven ERLC server with service departments, realistic dispatch, and frequent events.
     </p>
+
     <div class="buttons">
       <a href="#" class="btn primary">Join Server</a>
       <a href="#" class="btn secondary">View Rules</a>
     </div>
-  </header>
 
-  <section class="features">
-    <div class="feature">
-      <h3>Community-Driven</h3>
-      <p>Built by players, for players.</p>
-    </div>
-    <div class="feature">
-      <h3>Active Departments</h3>
-      <p>Realistic law enforcement & EMS.</p>
-    </div>
-    <div class="feature">
-      <h3>Frequent Events</h3>
-      <p>Regular community activities.</p>
-    </div>
-  </section>
+    <section class="features">
+      <div class="feature">
+        <h3>Community-Driven</h3>
+        <p>Built by players, for players.</p>
+      </div>
+      <div class="feature">
+        <h3>Active Departments</h3>
+        <p>Realism for enforcement & EMS.</p>
+      </div>
+      <div class="feature">
+        <h3>Frequent Events</h3>
+        <p>Regular community activities.</p>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
