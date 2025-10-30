@@ -6,8 +6,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="maintenance-banner" class="banner" style="display:none;">
-    ⚠️ This site is being worked on currently!
+  <div id="maintenance-overlay" class="overlay" style="display:none;">
+    <div class="overlay-content">
+      <p>⚠️ This site is being worked on currently!</p>
+      <input type="password" id="unlock-password" placeholder="Enter password">
+      <button onclick="unlockSite()">Unlock</button>
+      <p id="unlock-error" style="color:red;"></p>
+    </div>
   </div>
 
   <nav>

@@ -1,17 +1,28 @@
+const ADMIN_PASSWORD = '7736635722';
+
 async function updatePlayerCount() {
   try {
     const res = await fetch('/api/server-info');
     const data = await res.json();
     document.getElementById('players').textContent = `${data.currentPlayers} Players`;
 
-    const banner = document.getElementById('maintenance-banner');
-    if (data.maintenance) {
-      banner.style.display = 'block';
+    if (data.maintenance && !sessionStorage.getItem('unlocked')) {
+      document.getElementById('maintenance-overlay').style.display = 'flex';
     } else {
-      banner.style.display = 'none';
+      document.getElementById('maintenance-overlay').style.display = 'none';
     }
   } catch (err) {
     document.getElementById('players').textContent = 'Error';
+  }
+}
+
+function unlockSite() {
+  const input = document.getElementById('unlock-password').value;
+  if (input === ADMIN_PASSWORD) {
+    sessionStorage.setItem('unlocked', 'true');
+    document.getElementById('maintenance-overlay').style.display = 'none';
+  } else {
+    document.getElementById('unlock-error').textContent = 'Incorrect password.';
   }
 }
 
