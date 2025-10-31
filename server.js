@@ -11,8 +11,7 @@ let serverStatus = {
   maintenance: false,
   title: "Miami City Roleplay",
   tagline: "Tropical RP Action in ER:LC",
-  description: "Join a vibrant, community-driven RP server with active departments, realistic dispatch, and frequent events.",
-  logo: "/logo.png"
+  description: "Join a vibrant, community-driven RP server with active departments, realistic dispatch, and frequent events."
 };
 
 app.use(express.static(path.join(__dirname, 'public')));

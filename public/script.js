@@ -9,7 +9,6 @@ async function updatePlayerCount() {
     document.getElementById('title').textContent = data.title;
     document.getElementById('tagline').textContent = data.tagline;
     document.getElementById('description').textContent = data.description;
-    document.getElementById('logo').src = data.logo;
 
     if (data.maintenance && !sessionStorage.getItem('unlocked')) {
       document.getElementById('maintenance-overlay').style.display = 'flex';
