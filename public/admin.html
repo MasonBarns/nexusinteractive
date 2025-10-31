@@ -7,7 +7,7 @@
 </head>
 <body>
   <nav>
-    <div class="nav-brand">Miami RP Admin</div>
+    <img src="/logo.png" alt="Miami RP Logo" class="logo">
     <ul>
       <li><a href="index.html">Home</a></li>
     </ul>
@@ -22,7 +22,7 @@
       <p id="auth-error" class="error"></p>
     </div>
 
-    <form id="adminForm" style="display:none;" enctype="multipart/form-data">
+    <form id="adminForm" style="display:none;">
       <label>Server Online:
         <input type="checkbox" id="online">
       </label><br><br>
@@ -47,10 +47,6 @@
         <textarea id="description" rows="4" cols="50"></textarea>
       </label><br><br>
 
-      <label>Upload Logo:
-        <input type="file" id="logo" accept="image/*">
-      </label><br><br>
-
       <button type="submit" class="btn primary">Update Site</button>
     </form>
   </header>
@@ -70,21 +66,18 @@
 
     document.getElementById('adminForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const formData = new FormData();
-      formData.append('password', ADMIN_PASSWORD);
-      formData.append('online', document.getElementById('online').checked);
-      formData.append('currentPlayers', document.getElementById('players').value);
-      formData.append('maintenance', document.getElementById('maintenance').checked);
-      formData.append('title', document.getElementById('title').value);
-      formData.append('tagline', document.getElementById('tagline').value);
-      formData.append('description', document.getElementById('description').value);
-
-      const logoFile = document.getElementById('logo').files[0];
-      if (logoFile) formData.append('logo', logoFile);
-
       const res = await fetch('/api/update-status', {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: ADMIN_PASSWORD,
+          online: document.getElementById('online').checked,
+          currentPlayers: document.getElementById('players').value,
+          maintenance: document.getElementById('maintenance').checked,
+          title: document.getElementById('title').value,
+          tagline: document.getElementById('tagline').value,
+          description: document.getElementById('description').value
+        })
       });
 
       if (res.ok) {
