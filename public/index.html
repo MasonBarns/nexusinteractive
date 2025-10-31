@@ -2,65 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Liberty County Roleplay</title>
+  <title>Miami RP</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Maintenance Lockout -->
   <div id="maintenance-overlay" class="overlay">
     <div class="overlay-content">
-      <h2>⚠️ Site Under Maintenance</h2>
-      <p>This site is currently being worked on. To continue, please enter an adminstrative password or wait until we end maintenance.</p>
+      <h2>🚧 Site Under Maintenance</h2>
       <input type="password" id="unlock-password" placeholder="Enter password">
       <button onclick="unlockSite()">Unlock</button>
       <p id="unlock-error" class="error"></p>
     </div>
   </div>
 
-  <!-- Navigation -->
   <nav>
-    <div class="nav-brand">Placeholder </div>
+    <img id="logo" src="" alt="Miami RP Logo" class="logo">
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">Departments</a></li>
       <li><a href="#">Rules</a></li>
       <li><a href="#">Join Us</a></li>
-      <li><a href="admin.html">.</a></li>
+      <li><a href="admin.html">Admin</a></li>
     </ul>
   </nav>
 
-  <!-- Main Content -->
   <main>
     <div class="status-box">
-      <span class="status-label">🟢 Server Status:</span>
+      <span class="status-label">Server Status:</span>
       <span id="players">Loading...</span>
     </div>
 
-    <h1>Placeholder</h1>
-    <p class="tagline">Tagline placeholder</p>
-    <p class="description">
-      Discription placeholder
+    <h1 id="title">Miami City Roleplay</h1>
+    <p class="tagline" id="tagline">Tropical RP Action in ER:LC</p>
+    <p class="description" id="description">
+      Join a vibrant, community-driven ER:LC server with active departments, realistic roleplays, and events.
     </p>
-
-    <div class="buttons">
-      <a href="#" class="btn primary">Join Server</a>
-      <a href="#" class="btn secondary">View Rules</a>
-    </div>
-
-    <section class="features">
-      <div class="feature">
-        <h3>Community-Driven</h3>
-        <p>Built by players, for players.</p>
-      </div>
-      <div class="feature">
-        <h3>Active Departments</h3>
-        <p>Realism for enforcement & EMS.</p>
-      </div>
-      <div class="feature">
-        <h3>Frequent Events</h3>
-        <p>Regular community activities.</p>
-      </div>
-    </section>
   </main>
 
   <script src="script.js"></script>

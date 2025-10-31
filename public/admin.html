@@ -7,7 +7,7 @@
 </head>
 <body>
   <nav>
-    <div class="nav-brand">Admin</div>
+    <div class="nav-brand">Miami RP Admin</div>
     <ul>
       <li><a href="index.html">Home</a></li>
     </ul>
@@ -15,41 +15,82 @@
 
   <header>
     <h1>Admin Panel</h1>
-    <form id="statusForm">
-      <label>Password:
-        <input type="password" id="password" required>
-      </label><br><br>
+
+    <div id="auth-section">
+      <input type="password" id="admin-password" placeholder="Enter admin password">
+      <button onclick="authenticate()">Unlock Panel</button>
+      <p id="auth-error" class="error"></p>
+    </div>
+
+    <form id="adminForm" style="display:none;" enctype="multipart/form-data">
       <label>Server Online:
-        <input type="checkbox" id="online" checked>
+        <input type="checkbox" id="online">
       </label><br><br>
+
       <label>Current Players:
-        <input type="number" id="players" value="29">
+        <input type="number" id="players">
       </label><br><br>
+
       <label>Maintenance Mode:
         <input type="checkbox" id="maintenance">
       </label><br><br>
-      <button type="submit" class="btn primary">Update Status</button>
+
+      <label>Homepage Title:
+        <input type="text" id="title">
+      </label><br><br>
+
+      <label>Homepage Tagline:
+        <input type="text" id="tagline">
+      </label><br><br>
+
+      <label>Homepage Description:
+        <textarea id="description" rows="4" cols="50"></textarea>
+      </label><br><br>
+
+      <label>Upload Logo:
+        <input type="file" id="logo" accept="image/*">
+      </label><br><br>
+
+      <button type="submit" class="btn primary">Update Site</button>
     </form>
   </header>
 
   <script>
-    document.getElementById('statusForm').addEventListener('submit', async (e) => {
+    const ADMIN_PASSWORD = '7736635722';
+
+    function authenticate() {
+      const input = document.getElementById('admin-password').value;
+      if (input === ADMIN_PASSWORD) {
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('adminForm').style.display = 'block';
+      } else {
+        document.getElementById('auth-error').textContent = 'Incorrect password.';
+      }
+    }
+
+    document.getElementById('adminForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const password = document.getElementById('password').value;
-      const online = document.getElementById('online').checked;
-      const currentPlayers = parseInt(document.getElementById('players').value);
-      const maintenance = document.getElementById('maintenance').checked;
+      const formData = new FormData();
+      formData.append('password', ADMIN_PASSWORD);
+      formData.append('online', document.getElementById('online').checked);
+      formData.append('currentPlayers', document.getElementById('players').value);
+      formData.append('maintenance', document.getElementById('maintenance').checked);
+      formData.append('title', document.getElementById('title').value);
+      formData.append('tagline', document.getElementById('tagline').value);
+      formData.append('description', document.getElementById('description').value);
+
+      const logoFile = document.getElementById('logo').files[0];
+      if (logoFile) formData.append('logo', logoFile);
 
       const res = await fetch('/api/update-status', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, online, currentPlayers, maintenance })
+        body: formData
       });
 
       if (res.ok) {
-        alert('Status updated!');
+        alert('Site updated!');
       } else {
-        alert('Failed to update status.');
+        alert('Failed to update.');
       }
     });
   </script>
