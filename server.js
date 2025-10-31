@@ -49,6 +49,10 @@ app.post('/api/update-status', upload.single('logo'), (req, res) => {
   res.json({ success: true });
 });
 
+app.get('/', (req, res) => {
+  res.send('Miami RP server is live!');
+});
+
 app.listen(PORT, () => {
   console.log(`Miami RP server running on port ${PORT}`);
 });
