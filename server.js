@@ -9,7 +9,7 @@ let serverStatus = {
   online: true,
   currentPlayers: 42,
   maintenance: false,
-  title: "Miami City Roleplay",
+  title: "Fort Lauderdale Roleplay",
   tagline: "Tropical RP Action in ER:LC",
   description: "Join a vibrant, community-driven RP server with active departments, realistic dispatch, and frequent events."
 };
@@ -39,9 +39,9 @@ app.post('/api/update-status', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Miami RP server is live!');
+  res.send('Fort Lauderdale RP server is live!');
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Miami RP backend running on port ${PORT}`);
+  console.log(`✅ Fort Lauderdale RP backend running on port ${PORT}`);
 });
